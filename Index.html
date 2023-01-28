@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type ="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="sweetalert2.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Studant</title>
+</head>
+<body>
+  
+  <div class="fundofuncional"><img></div>
+  <form class="box">
+  <div class="videoplayer">
+  <video controls style="width: 60%;">
+    <source src="pitch.mp4" type="video/mp4">
+    <source src="rabbit320.webm" type="video/webm">
+    <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.</p>
+  </video>
+</form>
+</div>
+  <div class="fundomenu"><img id="a"></div>
+  
+  <!--<div class="closemenu"><img src="close.png" style="width: 70%"></div> CLOSE BAR N FUNCIONAL-->
+  <section class="showcase">
+    <header>
+      <img class="bar" src="bar.png">
+      <img class="logoimagem" src="logocoruja.png">
+      <h2 class="logo">Menu</h2>
+      <div class="toggle"></div>
+    </header>
+    <video autoplay loop muted>
+        <source src="overlay.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="text">
+      <h2>Bem-Vindo ao</h2> 
+      <h3>FUTURO!</h3>
+      <p>O melhor, tecnológico e simplificado Ambiente Virtual de todos!</p>
+      <a href="javascript: sweetsobre()">Sobre nós</a>
+    </div>
+
+    <ul class="social">
+      <img class="bar" src="bar.png">
+      <li><a href="#"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>
+      <li><a href="#"><img src="https://i.ibb.co/Wnxq2Nq/twitter.png"></a></li>
+      <li><a href="#"><img src="https://i.ibb.co/ySwtH4B/instagram.png"></a></li>
+    </ul>
+  </section>
+  
+  <div class="menu">
+    <img class="barmenu" src="bar.png" style="width: 100%;">
+    <ul>
+      <center>
+      <br>
+      <h2>O que você deseja?</h2><br><br><br>
+      <h3>Opções de login:</h1>
+      <li><a href="LoginAluno.html#?">Aluno</a></li>
+      <li><a href="LoginProfessor.html#?">Professor</a></li>
+      <li><a href="LoginAdmin.html#?">Admin</a></li><br>
+      <h3>Problemas em relação a conta?</h3>
+      <li><a href="mailto:estudantcorporation@gmail.com?subject=Olá melhor empresa do mundo!%20">Nos diga!</a></li>
+      <li><a href="#">Créditos</a></li>
+      </center>
+    </ul>
+  </div>
+  <script src="functions.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <style>
+    .swal-overlay
+    {
+      background-color: rgba(0, 0, 0, 0.863);
+    }
+    .swal-text
+    {
+      text-align: justify;
+    }
+    .swal-icon
+    {
+      width: 200px;
+    }
+  </style>
+	<script type="text/javascript">
+		function sweetsobre(){
+			swal({
+      icon: "coruja.png",
+      title: "Sobre nós",
+      text: "Somos uma plataforma virtual de acompanhamento pedagógico para pais ou responsáveis, professores e alunos. Em nossa plataforma é possível verificar a presença e a quantidade de faltas, para que os professores e responsáveis possam acompanhar o desenvolvimento e desempenho dos alunos com mais facilidade. ",
+      buttons: {
+        cancel: "Fechar"
+      }
+      })}
+	</script>
+  <script type="text/javascript">
+
+  </script>
+  <script src="Index.js"></script>
+</body>
+</html>

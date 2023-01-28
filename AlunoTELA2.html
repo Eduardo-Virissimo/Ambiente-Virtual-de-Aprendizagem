@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+        <link rel="stylesheet" href="navbar.css">
+    </head>
+    </head>
+<body>
+    <link rel="stylesheet" href="loading.css">
+    <div class="loader">
+          <img src="corujasemfundo.png" style="width: 20%; opacity: 50%;" alt="Carregando..." />
+      </div>
+    <script src="loading.js"></script>
+      <a href="Index.html" onclick="ApagarSession()" style="text-decoration:none; font-size: 20px;">Sair</a>
+      <label class="usuarioLogadoComo" style="text-decoration: none; font-size: 15px; font-style: bold;">Você está logado como:</label>
+      <label id="userLogado" class="usuarioLogado" style="text-decoration: none; font-size: 20px;"></label>
+      <center>
+      <form class="box">
+        <nav>
+            <a href="AlunoTELA.html#?">Presença</a>
+            <a href="AlunoTELA2.html#?">Notas</a>
+            <a href="AlunoTELA3.html#?">Boletim</a>
+          </nav>
+    <table class="table">
+        <tr>
+            <th>UC</th>
+            <th>Semestre</th>
+            <th>Nota</th>
+            <th>Peso</th>
+            <th>Tipo Nota</th>
+        </tr>
+    </table>
+    </form>
+      </center>
+  <script>
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        CurrentSession = JSON.parse(localStorage.getItem("CurrentSession"))
+        function codeAddress(){
+            var table2 = document.getElementsByTagName('table')[0];
+            if (vetorNotas == null) {
+                vetorNotas = []
+            }
+            //  tableTamanho = document.getElementById('table')
+            // add new empty row to the table
+            // 0 = in the top 
+            // table.rows.length = the end
+            // table.rows.length/2+1 = the center
+            //table2 = document.getElementById('table')
+            //var newRow = table2.insertRow(table2.rows.length);
+            // add cells to the row
+            vetorNotas.sort((a, b) => {
+                let fa = a.uc.toLowerCase(),
+                    fb = b.uc.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+            for (i = table2.rows.length - 1; i > 1; i--) {
+                table2.deleteRow(i)
+            }
+            for(i = 0;i < vetorNotas.length;i++){
+                if(vetorNotas[i].nome == CurrentSession.nome && vetorNotas[i].turma == CurrentSession.turma && vetorNotas[i].escola == CurrentSession.escola){
+                    var newRow = table2.insertRow(table2.rows.length);
+                    var cel1 = newRow.insertCell(0);
+                    var cel2 = newRow.insertCell(1);
+                    var cel3 = newRow.insertCell(2);
+                    var cel4 = newRow.insertCell(3);
+                    var cel5 = newRow.insertCell(4);
+
+                    cel1.innerHTML = vetorNotas[i].uc
+                    cel2.innerHTML = vetorNotas[i].semestre
+                    cel3.innerHTML = vetorNotas[i].nota 
+                    cel4.innerHTML = vetorNotas[i].peso
+                    cel5.innerHTML = vetorNotas[i].tipoNota
+                }
+                
+            } 
+            wesley = JSON.parse(localStorage.getItem("CurrentSession"))
+            document.getElementById("userLogado").innerHTML = wesley.nome
+        }
+        window.onload = codeAddress
+  </script>      
+</body>
+</html>

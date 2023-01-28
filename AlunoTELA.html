@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="navbar.css">
+</head>
+</head>
+
+<body>
+    <link rel="stylesheet" href="loading.css">
+<div class="loader">
+      <img src="corujasemfundo.png" style="width: 20%; opacity: 50%;" alt="Carregando..." />
+  </div>
+<script src="loading.js"></script>
+  <a href="Index.html" onclick="ApagarSession()" style="text-decoration:none; font-size: 20px;">Sair</a>
+  <label class="usuarioLogadoComo" style="text-decoration: none; font-size: 15px; font-style: bold;">Você está logado como:</label>
+  <label id="userLogado" class="usuarioLogado" style="text-decoration: none; font-size: 20px;"></label>
+  <center>
+  <form class="box">
+    <nav>
+        <a href="AlunoTELA.html#?">Presença</a>
+        <a href="AlunoTELA2.html#?">Notas</a>
+        <a href="AlunoTELA3.html#?">Boletim</a>
+      </nav>
+    <table class="table">
+        <tr>
+            <th>Presença</th>
+            <th>UC</th>
+            <th>Data</th>
+        </tr>
+
+    </table>
+</form>
+</center>
+
+    <script src="Index.js"></script>
+    <script>
+
+        function codeAddress() {
+            vetorPresenca = JSON.parse(localStorage.getItem("Presenca"))
+            var table2 = document.getElementsByTagName('table')[0];
+            if (vetorPresenca == null) {
+                vetorPresenca = []
+            }
+            //  tableTamanho = document.getElementById('table')
+            // add new empty row to the table
+            // 0 = in the top 
+            // table.rows.length = the end
+            // table.rows.length/2+1 = the center
+            //table2 = document.getElementById('table')
+            var newRow = table2.insertRow(table2.rows.length);
+            // add cells to the row
+            vetorPresenca.sort((a, b) => {
+                let fa = a.aluno.toLowerCase(),
+                    fb = b.aluno.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+            for (i = table2.rows.length - 1; i > 1; i--) {
+                table2.deleteRow(i)
+            }
+
+            documentEscolaEditar = document.getElementById("escolaEditar")
+            documentEditarTurma = document.getElementById("turmaEditar")
+            documentEditarUC = document.getElementById("ucEditar")
+            selectEditarData = document.getElementById("dataEditar")
+            CurrentSession = JSON.parse(localStorage.getItem("CurrentSession"))
+            vetorPresenca = JSON.parse(localStorage.getItem("Presenca"))
+            if (vetorPresenca == null) {
+                vetorPresenca = []
+            }
+            for (i = 0; i < vetorPresenca.length; i++) {
+                if (vetorPresenca[i].escola == CurrentSession.escola && vetorPresenca[i].aluno == CurrentSession.nome && vetorPresenca[i].turma == CurrentSession.turma) {
+                    var newRow = table2.insertRow(table2.rows.length);
+                    var cel1 = newRow.insertCell(0);
+                    var cel2 = newRow.insertCell(1);
+                    var cel3 = newRow.insertCell(2);
+
+                   // cel1.innerHTML = vetorPresenca[i].aluno
+                    if (vetorPresenca[i].presenca == "presente") {
+                        cel1.innerHTML = "Presente"
+                    }
+                    else {
+                        cel1.innerHTML = "Não Presente"
+                    }
+                    cel2.innerHTML = vetorPresenca[i].uc
+                    cel3.innerHTML = vetorPresenca[i].data
+
+                }
+            }
+            wesley = JSON.parse(localStorage.getItem("CurrentSession"))
+            document.getElementById("userLogado").innerHTML = wesley.nome
+        }
+        window.onload = codeAddress
+    </script>
+</body>
+
+</html>

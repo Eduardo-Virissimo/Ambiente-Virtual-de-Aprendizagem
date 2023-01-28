@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+header
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 100px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logoimagem
+{
+  position: absolute;
+  top: 12%;
+  left: auto;
+  width: 15%;
+  height: 160%;
+  cursor: pointer;
+  
+}
+
+header .bar
+{
+  position: absolute;
+  opacity: 50%;
+  top: -10%;
+  right: 0%;
+  width: 100%;
+  height: 200%;
+}
+
+header .logo
+{
+  top: 80%;
+  right: 8.5%;
+  position: absolute;
+  color: #fff;
+  
+  cursor: pointer;
+  font-size: 180%;
+}
+
+body 
+{
+  background-color: #272727;
+  /*background-image: url('menufoto.jpg');*/
+  background-attachment: fixed;
+}
+
+.box{
+  background: #272727;
+  width: 100%;
+  
+}
+.videoplayer
+{
+  
+  border-radius: 80%;
+  background-image: linear-gradient(#2b007a34, #512ca841);
+  position: absolute;
+  right: 0px;
+  width: 83%;
+  min-height: 100vh;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fundofuncional img
+{
+  background-image: url('menufoto.jpg');
+    background-repeat: no-repeat;
+    background-size:100%; 
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 100%;
+}
+
+.fundomenu img 
+{
+  background-image: url('issoai.png');
+    background-repeat: no-repeat;
+    background-size:100%;
+    bottom: 0%;
+    color: black;
+    left: 0%;
+    padding: 19em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    
+}
+.closemenu
+{
+  position: absolute;
+  right: 24.5%;
+  top: 9.5%;
+}
+
+.toggle
+{
+  top: 64%;
+  right: 5%;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: url(https://i.ibb.co/HrfVRcx/menu.png);
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+  cursor: pointer;
+}
+.toggle.active
+{
+  top: 64%;
+  left: 175%;
+  position: absolute;
+  background: url(https://i.ibb.co/rt3HybH/close.png);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center;
+  cursor: pointer;
+}
+.showcase
+{
+  position: absolute;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  transition: 1.5s;
+  z-index: 2;
+}
+.showcase.active
+{
+  opacity: 50%;
+  right: 100%;
+}
+
+.showcase video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.overlay
+{
+  opacity: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #272727;
+  mix-blend-mode: overlay;
+}
+.text
+{
+  position: relative;
+  z-index: 10;
+}
+
+.text h2
+{
+  font-size: 4em;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+.text h3
+{
+  font-size: 7.2em;
+  font-weight: 700;
+  color: #9f70f8;
+  text-shadow: 2px 4px 3px #512ca8;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+.text p
+{
+  font-size: 1.1em;
+  color: #fff;
+  margin: 20px 0;
+  font-weight: 400;
+  max-width: 700px;
+}
+.text a
+{
+  display: inline-block;
+  font-size: 1em;
+  background: #fff;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 10px;
+  color: #111;
+  letter-spacing: 2px;
+  transition: 0.2s;
+}
+.text a:hover
+{
+  letter-spacing: 6px;
+}
+.social .bar
+{
+  position: absolute;
+  opacity: 50%;
+  top: 0%;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.social
+{
+  position: absolute;
+  z-index: 10;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.social li
+{
+  list-style: none;
+}
+.social li a
+{
+  display: inline-block;
+  margin-right: 20px;
+  filter: invert(1);
+  transform: scale(0.5);
+  transition: 0.5s;
+}
+.social li a:hover
+{
+  transform: scale(0.5) translateY(-15px);
+}
+
+.menu
+{
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#2e0083, #512ca8);
+  
+}
+.menu img
+{
+  position: absolute;
+  opacity: 25%;
+  top: 0%;
+  right: 0%;
+  width: auto;
+  height: 20%;
+}
+
+.menu img 
+{
+  position: absolute;
+  opacity: 25%;
+  top: 0%;
+  right: 0%;
+  width: auto;
+  height: 20%;
+}
+.menu ul
+{
+  position: absolute;
+  top: 5%;
+  right: 10%;
+}
+.menu ul li
+{
+  list-style: none;
+}
+
+.menu ul li a
+{
+  top: auto;
+  right: auto;
+  text-decoration: none;
+  font-size: 24px;
+  color: rgb(153, 153, 153);
+}
+.menu ul li a:hover
+{
+  color: rgb(194, 194, 194); 
+}
+.menu h2{
+  position: relative;
+  top: 0%;
+  right: 0%;
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 30px;
+} 
+.menu h3
+{
+  position: relative;
+  top: 0%;
+  right: 0%;
+  font-size: 24px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 30px;
+}
+.script
+{
+  text-align: justify;
+}
+
+@media (max-width: 991px)
+{
+  .showcase,
+  .showcase header
+  {
+    padding: 40px;
+  }
+  .text h2
+  {
+    font-size: 3em;
+  }
+  .text h3
+  {
+    font-size: 2em;
+  }
+}

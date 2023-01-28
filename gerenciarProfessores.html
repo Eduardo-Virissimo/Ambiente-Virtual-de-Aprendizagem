@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!--<link rel="stylesheet" type="text/css" href="C:\Users\felip\Documents\VisualStudioCode\SANovo\estilo\1.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="tags.js"></script>
+    <link rel="stylesheet" href="tags.css">
+    <link rel="stylesheet" href="navbar.css">
+
+</head>
+
+<body>
+    <link rel="stylesheet" href="loading.css">
+<div class="loader">
+      <img src="corujasemfundo.png" style="width: 20%; opacity: 50%;" alt="Carregando..." />
+  </div>
+<script src="loading.js"></script>
+<a href="Index.html" onclick="ApagarSession()" style="text-decoration:none; font-size: 20px;">Sair</a>
+    <center>
+        <form class="box">
+            <nav>
+                <a href="gerenciarAlunos.html#?">Gerenciar Alunos</a>
+                <a href="gerenciarColegios.html#?">Gerenciar Colegios</a>
+                <a href="gerenciarProfessores.html#?">Gerenciar Professores</a>
+                <a href="backlog.html#?">BACKLOG</a>
+              </nav>
+        <div id="topo">
+            <h1>Nova Conta Professor</h1>
+            <label>Nome Completo</label>
+            <input id="nomeProfessor" type="name">
+            <label for="email">E-mail*</label>
+            <input type="email" id="userProfessor" name="email">
+            <label>Senha*</label>
+            <input type="text" id="passProfessor">
+            <label>Confirmar senha*</label>
+            <input type="text" id="passconfirmProfessor"><br>
+
+            <label>Unidade Curricular</label>
+            <select  id="uc" class="selecttwo multiple="multiple style="width: 180px; "></select>
+
+            <br><br>
+
+            <label>Tag RFID(opcional)</label><br>
+            <input name='rfid' id='rfid-tag' value=%RFID_TAG% type="text">   
+            <select id="selecionarclasseProfessor">
+                <option value="Professor">Professor</option>
+            </select><br><br>
+            <label>Escolha a sua escola</label>
+            <select class="selecttwo" id="escolaProfessor" multiple="multiple" style="width: 180px">
+            </select>
+            <br>
+            <!--  <select id="turmaProfessor"></select><br>-->
+
+            <button onclick="CadastrarProfessor()" id>Cadastrar</button>
+            <button onclick="EditarProfessor()">Editar</button>
+            <button onclick="AtivarListagem()" id="toggle">Listar</button>
+            
+
+
+
+
+            <br>
+            <br>
+            <label>Digite abaixo o e-mail (CONTA) a ser excluída.</label><br>
+            <input type="text" id="excluirProfessor"><button onclick="ExcluirProfessor()">Excluir</button><br><br>
+        </div>
+        
+       
+        <div id="lista">
+
+                
+                     <label>Digite abaixo a escola a ser pesquisada.</label><br>
+                     <input type="text" id="userPesquisa"><button onclick="PesquisarProfessor()">Pesquisar</button><br><br>
+            <table class="table" id="table">
+                <tr>
+                    <th>Escola</th>
+                    <th>Professor</th>
+                    <th>Email</th>
+                    <th>RFID</th>
+                    <th>Senha</th>
+                    <th>UC</th>
+                </tr>
+            </table>
+        </div>
+        <h1>Turmas Lecionadas</h1>
+        <select id="EscolaLecionada" style="width: 180px;"></select>
+        <select id="Professor" style="width: 180px"></select>
+
+        <select id="uclecionada" style="width: 180px;"></select>
+        <select id="TurmaLecionada" multiple="multiple" style="width: 180px;"></select>
+        <br>
+        <button onclick="CadastrarTurmaLecionada()">Cadastrar</button>
+        <button onclick="EditarTurmaLecionada()">Editar</button>
+        <button id="toggle2"onclick="AtivarListagemTurmasLecionadas()">Listar</button>
+        
+        <!--<button onclick="ListarProfessores()">Listar</button>-->
+        <div id="lista2">
+            <label>Digite abaixo a turma lecionada a ser pesquisada.</label><br>
+                     <input type="text" id="turmaLecionadaPesquisa"><button onclick="PesquisarTurmaLecionada()">Pesquisar</button><br><br>
+            <table class="table" id="table">
+                <tr>
+                    <th>Escola</th>
+                    <th>Professor</th>
+                    <th>UC</th>
+                    <th>Turmas</th>
+                    <th>Deletar</th>
+                </tr>
+            </table>
+        </div>
+        <script>
+            $('#escolaProfessor').select2({
+                dir: "ltr",
+
+                placeholder: "Escolha a sua escola"
+            });
+            $('#uc').select2({
+                dir: "ltr",
+                tags:true,
+                placeholder: "Unidades Curriculares(UC)"
+            });
+            $('#Professor').select2({
+                dir: "ltr",
+
+                placeholder: "Nome Professor"
+            });
+            $('#EscolaLecionada').select2({
+                dir: "ltr",
+
+                placeholder: "Escola Lecionada"
+            });
+            $('#uclecionada').select2({
+                dir: "ltr",
+
+                placeholder: "uc lecionada"
+            });
+            $('#TurmaLecionada').select2({
+                dir: "ltr",
+
+                placeholder: "turma lecionada"
+            });
+            escolaLecionada = document.getElementById("EscolaLecionada")
+            Professor = document.getElementById("Professor")
+            turmaLecionada = document.getElementById("TurmaLecionada")
+            selectTurmaAluno = document.getElementById("turmaAluno")
+            escolas = JSON.parse(localStorage.getItem("escolas"))
+            selectEscolaProfessor = document.getElementById("escolaProfessor")
+            usuarios = JSON.parse(localStorage.getItem("usuario"))
+            uclecionada = document.getElementById("uclecionada")
+
+
+            //$('#Professor').change(function () {
+            //    CarregarEscolasLecionadas()
+            // $('#escolaEditar').val(val); // Select the option with a value of '21'
+            //  $('#escolaEditar').trigger('change');
+            //$('#escolaEditar').val(val); // Select the option with a value of '21'
+            //   })
+            
+            $('#EscolaLecionada').change(function () {
+                let salvarPosicao
+                verificar = false
+                let posicao
+                if (turmaLecionada != null) {
+                    for (i = 0; i < turmaLecionada.length; i++) {
+                        $('#TurmaLecionada').children().remove().end()
+
+                    }
+                }
+                if (Professor != null) {
+                    for (i = 0; i < Professor.length; i++) {
+                        $('#Professor').children().remove().end()
+                    }
+                }
+                if (uclecionada != null) {
+                    for (i = 0; i < uclecionada.length; i++) {
+                        $('#uclecionada').children().remove().end()
+                    }
+                }
+                if (usuarios != null) {
+                    for (i = 0; i < usuarios.length; i++) {
+                        if (usuarios[i].classe == "Professor") {
+                            posicaoLegal = i
+                            for (j = 0; j < usuarios[i].escola.length; j++) {
+                                if (usuarios[i].escola[j] == escolaLecionada.value) {
+                                    option = document.createElement("option")
+                                    option.text = usuarios[i].nome
+                                    option.value = usuarios[i].nome
+                                    Professor.add(option)
+                                }
+                            }
+                        }
+
+                    }
+                }
+                verificar2 = false
+                if (uclecionada != null && usuarios != null) {
+                    for (i = 0; i < uclecionada.length; i++) {
+                        $('#uclecionada').children().remove().end()
+                    }
+                    for (i = 0; i < usuarios.length; i++) {
+                        if (usuarios[i].nome == Professor.value) {
+                            salvarPosicao = i
+                            verificar2 = true
+                            break
+                        }
+                    }
+                    if (verificar2 == true) {
+                        if (usuarios[salvarPosicao].unidadeCurricular.length != null) {
+                            for (j = 0; j < usuarios[salvarPosicao].unidadeCurricular.length; j++) {
+                                option = document.createElement("option")
+                                option.text = usuarios[salvarPosicao].unidadeCurricular[j]
+                                option.value = usuarios[salvarPosicao].unidadeCurricular[j]
+                                uclecionada.add(option)
+
+                            }
+                        }
+                    }
+                }
+                if (turmaLecionada != null) {
+
+                    for (i = 0; i < turmaLecionada.length; i++) {
+                        $('#TurmaLecionada').children().remove().end()
+
+                    }
+                    for (i = 0; i < escolas.length; i++) {
+                        if (escolas[i].colegio == escolaLecionada.value) {
+                            salvarposicao2 = i
+                            verificar3 = true
+                        }
+                    }
+                    if (verificar3 == true) {
+                        for (i = 0; i < escolas[salvarposicao2].turmaEscola.length; i++) {
+                            option = document.createElement("option")
+                            option.text = escolas[salvarposicao2].turmaEscola[i]
+                            option.value = escolas[salvarposicao2].turmaEscola[i]
+                            turmaLecionada.add(option)
+                        }
+                    }
+
+                }
+            }
+
+
+            )
+            $('#Professor').change(function () {
+                verificar2 = false
+                if (uclecionada != null && usuarios != null) {
+                    for (i = 0; i < uclecionada.length; i++) {
+                        $('#uclecionada').children().remove().end()
+                    }
+                    for (i = 0; i < usuarios.length; i++) {
+                        if (usuarios[i].nome == Professor.value) {
+                            salvarPosicao = i
+                            verificar2 = true
+                            break
+                        }
+                    }
+                    if (verificar2 == true) {
+                        if (usuarios[salvarPosicao].unidadeCurricular.length != null) {
+                            for (j = 0; j < usuarios[salvarPosicao].unidadeCurricular.length; j++) {
+                                option = document.createElement("option")
+                                option.text = usuarios[salvarPosicao].unidadeCurricular[j]
+                                option.value = usuarios[salvarPosicao].unidadeCurricular[j]
+                                uclecionada.add(option)
+
+                            }
+                        }
+                    }
+                }
+            })
+            function CarregarEscolasLecionadas() {
+                if (escolas != null) {
+                    for (i = 0; i < escolas.length; i++) {
+                        $('#EscolaLecionada').children().remove().end()
+                    }
+                    for (i = 0; i < escolas.length; i++) {
+
+                        option = document.createElement("option")
+                        option.text = escolas[i].colegio
+                        option.value = escolas[i].colegio
+                        escolaLecionada.add(option)
+
+                    }
+
+                }
+                verificar = false
+                if (Professor != null && usuarios != null) {
+
+                    let posicao
+                    let salvarPosicao
+                    for (i = 0; i < usuarios.length; i++) {
+                        $('#Professor').children().remove().end()
+                    }
+                    for (i = 0; i < usuarios.length; i++) {
+                        if (usuarios[i].classe == "Professor") {
+                            posicaoLegal = i
+                            for (j = 0; j < usuarios[i].escola.length; j++) {
+                                if (usuarios[i].escola[j] == escolaLecionada.value) {
+                                    option = document.createElement("option")
+                                    option.text = usuarios[i].nome
+                                    option.value = usuarios[i].nome
+                                    Professor.add(option)
+                                }
+                            }
+                        }
+
+                    }
+                }
+                verificar2 = false
+                verificar3 = false
+                let salvarposicao2
+                let salvarPosicao
+                if (uclecionada != null && usuarios != null) {
+                    for (i = 0; i < uclecionada.length; i++) {
+                        $('#uclecionada').children().remove().end()
+                    }
+                    for (i = 0; i < usuarios.length; i++) {
+                        if (usuarios[i].nome == Professor.value) {
+                            salvarPosicao = i
+                            verificar2 = true
+                            break
+                        }
+                    }
+                    if (verificar2 == true) {
+                        for (j = 0; j < usuarios[salvarPosicao].unidadeCurricular.length; j++) {
+                            option = document.createElement("option")
+                            option.text = usuarios[salvarPosicao].unidadeCurricular[j]
+                            option.value = usuarios[salvarPosicao].unidadeCurricular[j]
+                            uclecionada.add(option)
+
+                        }
+                    }
+                }
+                if (turmaLecionada != null) {
+
+                    for (i = 0; i < turmaLecionada.length; i++) {
+                        $('#TurmaLecionada').children().remove().end()
+
+                    }
+                }
+                if (escolas != null) {
+                    for (i = 0; i < escolas.length; i++) {
+                        if (escolas[i].colegio == escolaLecionada.value) {
+                            salvarposicao2 = i
+                            verificar3 = true
+                        }
+                    }
+                }
+                if (verificar3 == true && turmaLecionada != null) {
+                    for (i = 0; i < escolas[salvarposicao2].turmaEscola.length; i++) {
+                        option = document.createElement("option")
+                        option.text = escolas[salvarposicao2].turmaEscola[i]
+                        option.value = escolas[salvarposicao2].turmaEscola[i]
+                        turmaLecionada.add(option)
+                    }
+                }
+
+            }
+            
+            function code2() {
+                verificar = false
+                for (i = 0; i < selectTurmaAluno.length; i++) {
+                    selectTurmaAluno.remove(option)
+                }
+                selectTurmaAluno = document.getElementById("turmaAluno")
+                escolas = JSON.parse(localStorage.getItem("escolas"))
+                for (i = 0; i < escolas.length; i++) {
+                    option = document.createElement("option")
+                    if (select1.value == escolas[i].colegio) {
+                        posicao = i
+                        verificar = true;
+                    }
+                }
+                if (verificar == true) {
+                    for (i = 0; i < escolas[posicao].turmaEscola.length; i++) {
+                        option = document.createElement("option")
+                        option.text = escolas[posicao].turmaEscola[i]
+                        option.value = escolas[posicao].turmaEscola[i]
+                        selectTurmaAluno.add(option)
+                    }
+
+                }
+
+            }
+            function AtivarListagemTurmasLecionadas() {
+                const targetDiv2 = document.getElementById("lista2");
+                const btn2 = document.getElementById("toggle2");
+                btn2.onclick = function () {
+                    if (targetDiv2.style.display !== "none") {
+                        targetDiv2.style.display = "none";
+                    } else {
+                        targetDiv2.style.display = "block";
+                    }
+                };
+            }
+            function AtivarListagem() {
+                const targetDiv = document.getElementById("lista");
+                const btn = document.getElementById("toggle");
+                btn.onclick = function () {
+                    if (targetDiv.style.display !== "none") {
+                        targetDiv.style.display = "none";
+                    } else {
+                        targetDiv.style.display = "block";
+                    }
+                };
+            }
+            function ListarTurmasLecionadas() {
+                TurmasLecionadas = JSON.parse(localStorage.getItem("TurmasLecionadas"))
+                if (TurmasLecionadas != null) {
+
+
+                    // get input values
+                    // var fname = document.getElementById('fname').value;
+                    // var lname = document.getElementById('lname').value;
+                    //var age = document.getElementById('age').value;
+
+                    // get the html table
+                    // 0 = the first table
+                    // document.getElementById('table')[0]
+                    var table2 = document.getElementsByTagName('table')[1];
+                    //  tableTamanho = document.getElementById('table')
+                    // add new empty row to the table
+                    // 0 = in the top 
+                    // table.rows.length = the end
+                    // table.rows.length/2+1 = the center
+                    // table2 = document.getElementById('table')
+                    TurmasLecionadas.sort((a, b) => {
+                        let fa = a.Professor.toLowerCase(),
+                            fb = b.Professor.toLowerCase();
+
+                        if (fa < fb) {
+                            return -1;
+                        }
+                        if (fa > fb) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    var newRow = table2.insertRow(table2.rows.length);
+
+                    // add cells to the row
+
+                    for (i = table2.rows.length - 1; i > 1; i--) {
+                        table2.deleteRow(i)
+                    }
+                    for (i = 0; i < TurmasLecionadas.length; i++) {
+
+                        var newRow = table2.insertRow(table2.rows.length);
+                        var cel1 = newRow.insertCell(0);
+                        var cel2 = newRow.insertCell(1);
+                        var cel3 = newRow.insertCell(2);
+                        var cel4 = newRow.insertCell(3);
+                        var cel5 = newRow.insertCell(4);
+                        cel1.innerHTML = TurmasLecionadas[i].escola;
+                        cel2.innerHTML = TurmasLecionadas[i].Professor
+                        cel3.innerHTML = TurmasLecionadas[i].uc
+                        cel4.innerHTML = TurmasLecionadas[i].turmas
+                        cel5.innerHTML = "<button class='botaoExcluir' onclick='ExcluirTurmaLecionada()'>Excluir</button>";
+                    }
+                }
+
+            }
+            function ListarProfessores() {
+                vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+                if (vetorUsuarios != null) {
+
+
+                    var table = document.getElementsByTagName('table')[0];
+
+                    var newRow = table.insertRow(table.rows.length);
+
+
+
+                    for (i = table.rows.length - 1; i > 1; i--) {
+                        table.deleteRow(i)
+                    }
+                    for (i = 0; i < vetorUsuarios.length; i++) {
+                        if (vetorUsuarios[i].classe == "Professor") {
+                            var newRow = table.insertRow(table.rows.length);
+                            var cel1 = newRow.insertCell(0);
+                            var cel2 = newRow.insertCell(1);
+                            var cel3 = newRow.insertCell(2);
+                            var cel4 = newRow.insertCell(3);
+                            var cel5 = newRow.insertCell(4);
+                            var cel6 = newRow.insertCell(5);
+                            cel1.innerHTML = vetorUsuarios[i].escola;
+                            cel2.innerHTML = vetorUsuarios[i].nome
+                            cel3.innerHTML = vetorUsuarios[i].nomeUsuario
+                            cel4.innerHTML = vetorUsuarios[i].rfid
+                            cel5.innerHTML = vetorUsuarios[i].senha
+                            cel6.innerHTML = vetorUsuarios[i].unidadeCurricular
+                        }
+
+                    }
+
+
+                }
+            }
+            function codeAddress() {
+
+
+                if (escolas != null) {
+                    for (i = 0; i < escolas.length; i++) {
+                        option = document.createElement("option")
+                        option.text = escolas[i].colegio
+                        option.value = escolas[i].colegio
+                        selectEscolaProfessor.add(option)
+                    }
+                }
+                CarregarEscolasLecionadas()
+                ListarProfessores()
+                ListarTurmasLecionadas()
+                document.getElementById("lista").style.display = "none"
+                document.getElementById("lista2").style.display = "none"
+
+            }
+            //  code2()
+
+
+            window.onload = codeAddress
+        </script>
+        <script src="Index.js"></script>
+        </script>
+    </form>
+    </center>
+</body>
+
+</html>

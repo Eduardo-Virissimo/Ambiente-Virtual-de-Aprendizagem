@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professor</title>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body>
+  <link rel="stylesheet" href="loading.css">
+<div class="loader">
+      <img src="corujasemfundo.png" style="width: 20%; opacity: 50%;" alt="Carregando..." />
+  </div>
+<script src="loading.js"></script>
+  <a href="Index.html" onclick="ApagarSession()" style="text-decoration:none; font-size: 20px;">Sair</a>
+  <label class="usuarioLogadoComo" style="text-decoration: none; font-size: 15px; font-style: bold;">Você está logado como:</label>
+  <label id="userLogado" class="usuarioLogado" style="text-decoration: none; font-size: 20px;"></label>
+
+  <center>
+    <form class="box">
+      <nav>
+        <a href="ProfessorTELA2.html#?">Chamada</a>
+        <a href="ProfessorTELA.html#?">Notas</a>
+        
+      </nav>
+    <h1>Adicionar Notas</h1><br>
+    <select id="escola" style="width:180px">
+
+    </select>
+    <select id="uc" style="width:180px">
+
+    </select>
+    <select id="turma" style="width:180px">
+
+    </select>
+    <select id="tipoNota" style="width:180px;height: 30px;">
+      <option value="Avaliativa1">Avaliativa1</option>
+      <option value="Avaliativa2">Avaliativa2</option>
+      <option value="Avaliativa3">Avaliativa3</option>
+      <option value="Avaliativa4">Avaliativa4</option>
+      <option value="Avaliativa5">Avaliativa5</option>
+      <option value="Avaliativa6">Avaliativa6</option>
+      <option value="Rec1">Recuperação1</option>
+      <option value="Rec2">Recuperação2</option>
+
+    </select>
+    <br><br>
+    <select id="semestre" style="width:180px;height: 30px;">
+      <option value="semestre1">semestre 1</option>
+      <option value="semestre2">semestre 2</option>
+      <option value="semestre3">semestre 3</option>
+      <option value="semestre4">semestre 4</option>
+      <option value="semestre5">semestre 5</option>
+      <option value="semestre6">semestre 6</option>
+      <option value="semestre7">semestre 7</option>
+      <option value="semestre8">semestre 8</option>
+      <option value="semestre9">semestre 9</option>
+      <option value="semestre10">semestre 10</option>
+    </select>
+    <br>
+    <label>Deseja enviar a nota?</label>
+    <input type="checkbox" id="check">
+    <button onclick="AdicionarNota()">Adicionar Nota</button>
+    <table class="table">
+      <tr>
+        <th>Aluno</th>
+        <th>Nota</th>
+        <th>Peso</th>
+      </tr>
+    </table>
+    <h1>Editar Notas</h1>
+    <select id="escolaEditar" style="width: 180px;"></select>
+    <select id="ucEditar" style="width: 180px;"></select>
+    <select id="turmaEditar" style="width: 180px;"></select>
+    <select id="editarSemestre" style="width:180px;height: 30px;">
+      <option value="semestre1">semestre1</option>
+      <option value="semestre2">semestre2</option>
+      <option value="semestre3">semestre3</option>
+      <option value="semestre4">semestre4</option>
+      <option value="semestre5">semestre5</option>
+      <option value="semestre6">semestre6</option>
+      <option value="semestre7">semestre7</option>
+      <option value="semestre8">semestre8</option>
+      <option value="semestre9">semestre9</option>
+      <option value="semestre10">semestre10</option>
+    </select>
+    <button onclick="EditarNota()">Editar</button><br>
+    <table class="table" id="tabela">
+      <tr>
+        <th>Aluno</th>
+        <th>Nota</th>
+        <th>Tipo</th>
+        <th>Peso</th>
+        <th>Semestre</th>
+      </tr>
+    </table>
+    <button onclick="CalcularMedia()">Fechar Media</button>
+    <h1>Nota Final(MEDIA)</h1>
+    <select id="escolaMedia" style="width: 180px;"></select>
+    <select id="ucMedia" style="width: 180px;"></select>
+    <select id="turmaMedia" style="width: 180px;"></select>
+    <select id="semestreMedia" style="width: 180px;">
+      <option value="semestre1">semestre1</option>
+      <option value="semestre2">semestre2</option>
+      <option value="semestre3">semestre3</option>
+      <option value="semestre4">semestre4</option>
+      <option value="semestre5">semestre5</option>
+      <option value="semestre6">semestre6</option>
+      <option value="semestre7">semestre7</option>
+      <option value="semestre8">semestre8</option>
+      <option value="semestre9">semestre9</option>
+      <option value="semestre10">semestre10</option>
+    </select>
+    <table class="table">
+      <tr>
+        <th>Aluno</th>
+        <th>Media</th>
+      </tr>
+    </table>
+    </form>
+  </center>
+  <script src="Index.js"></script>
+  <script>
+    $('#uc').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a uc"
+    });
+    $('#escolaMedia').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a escola"
+    });
+    $('#ucMedia').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a uc"
+    });
+    $('#turmaMedia').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a turma"
+    });
+    $('#semestreMedia').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha o semestre"
+    });
+    $('#ucEditar').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a uc"
+    });
+    $('#escolaEditar').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a escola"
+    });
+    $('#turmaEditar').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a turma"
+    });
+    $('#escola').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a escola"
+    });
+
+    $('#turma').select2({
+      dir: "ltr",
+
+      placeholder: "Escolha a turma"
+    });
+    CurrentSession = JSON.parse(localStorage.getItem("CurrentSession"))
+    documentTurma = document.getElementById("turma")
+    documentuc = document.getElementById("uc")
+    documentEscola = document.getElementById("escola")
+    TurmasLecionadas = JSON.parse(localStorage.getItem("TurmasLecionadas"))
+    function codeAddress() {
+      CurrentSession = JSON.parse(localStorage.getItem("CurrentSession"))
+      documentTurma = document.getElementById("turma")
+      documentuc = document.getElementById("uc")
+      documentEscola = document.getElementById("escola")
+      TurmasLecionadas = JSON.parse(localStorage.getItem("TurmasLecionadas"))
+      for (i = 0; i < documentTurma.length; i++) {
+        $('#turma').children().remove().end()
+      }
+      for (i = 0; i < documentuc.length; i++) {
+        $('#uc').children().remove().end()
+      }
+      for (i = 0; i < documentEscola.length; i++) {
+        $('#escola').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].escola
+            option.value = TurmasLecionadas[i].escola
+            documentEscola.add(option)
+          }
+        }
+      }
+      if (documentEscola != null) {
+        $("#escola option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentuc.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurma.add(option)
+            }
+
+          }
+        }
+      }
+      if (documentTurma != null) {
+        $("#turma option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+      // get input values
+      if (vetorUsuarios == null) {
+        vetorUsuarios = []
+      }
+      // var fname = document.getElementById('fname').value;
+      // var lname = document.getElementById('lname').value;
+      //var age = document.getElementById('age').value;
+      if (vetorUsuarios != null) {
+        // get the html table
+        // 0 = the first table
+        // document.getElementById('table')[0]
+        var table = document.getElementsByTagName('table')[0];
+        //  tableTamanho = document.getElementById('table')
+        // add new empty row to the table
+        // 0 = in the top 
+        // table.rows.length = the end
+        // table.rows.length/2+1 = the center
+        //table2 = document.getElementById('table')
+        var newRow = table.insertRow(table.rows.length);
+
+        // add cells to the row
+        vetorUsuarios.sort((a, b) => {
+          let fa = a.nome.toLowerCase(),
+            fb = b.nome.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = table.rows.length - 1; i > 1; i--) {
+          table.deleteRow(i)
+        }
+      }
+      for (i = 0; i < vetorUsuarios.length; i++) {
+        if (vetorUsuarios[i].classe == "Aluno" && vetorUsuarios[i].turmaEscola == documentTurma.value) {
+          var newRow = table.insertRow(table.rows.length);
+          var cel1 = newRow.insertCell(0);
+          var cel2 = newRow.insertCell(1);
+          var cel3 = newRow.insertCell(2);
+
+          cel1.innerHTML = vetorUsuarios[i].nome;
+          cel2.innerHTML = "<input min='1' max='10' type='number' value='1'>"
+          cel3.innerHTML = "<input min='1' max='6' type='number' value='1'>"
+        }
+        wesley = JSON.parse(localStorage.getItem("CurrentSession"))
+      document.getElementById("userLogado").innerHTML = wesley.nome
+      }
+
+    
+
+
+
+
+
+      function CarregarMedia() {
+        /*
+        <select id="escolaMedia" style="width: 180px;"></select>
+    <select id="ucMedia" style="width: 180px;"></select>
+    <select id="turmaMedia" style="width: 180px;"></select>
+    <select id="semestreMedia" style="width: 180px;"></select>*/
+        documentEscolaMedia = document.getElementById("escolaMedia")
+        documentucMedia = document.getElementById("ucMedia")
+        documentTurmaMedia = document.getElementById("turmaMedia")
+        documentSemestreMedia = document.getElementById("semestreMedia")
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        vetorMedia = JSON.parse(localStorage.getItem("Media"))
+        CurrentSession = JSON.parse(localStorage.getItem("CurrentSession"))
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].escola
+              option.value = TurmasLecionadas[i].escola
+              documentEscolaMedia.add(option)
+            }
+          }
+        }
+        if (documentEscolaEditar != null) {
+          $("#escolaMedia option").each(function () {
+            $(this).siblings('[value="' + this.value + '"]').remove();
+          });
+        }
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].uc
+              option.value = TurmasLecionadas[i].uc
+              documentucMedia.add(option)
+            }
+          }
+        }
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+              for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+                option = document.createElement("option")
+                option.text = TurmasLecionadas[i].turmas[j]
+                option.value = TurmasLecionadas[i].turmas[j]
+                documentTurmaMedia.add(option)
+              }
+
+            }
+          }
+        }
+        if (documentTurmaMedia != null) {
+          $("#turmaMedia option").each(function () {
+            $(this).siblings('[value="' + this.value + '"]').remove();
+          });
+        }
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table3 = document.getElementsByTagName('table')[2];
+
+          var newRow = table3.insertRow(table3.rows.length);
+
+          // add cells to the row
+          vetorMedia.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table3.rows.length - 1; i > 1; i--) {
+            table3.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorMedia.length; i++) {
+          if (vetorMedia[i].escola == documentEscolaMedia.value && vetorMedia[i].turma == documentTurmaMedia.value && vetorMedia[i].uc == documentucMedia.value && vetorMedia[i].semestre == documentSemestreMedia.value) {
+            var newRow = table3.insertRow(table3.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            cel1.innerHTML = vetorMedia[i].nome;
+
+            cel2.innerHTML = vetorMedia[i].nota
+
+          }
+        }
+      }
+      function CarregarEditarNotas() {
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].escola
+              option.value = TurmasLecionadas[i].escola
+              documentEscolaEditar.add(option)
+            }
+          }
+        }
+        if (documentEscolaEditar != null) {
+          $("#escolaEditar option").each(function () {
+            $(this).siblings('[value="' + this.value + '"]').remove();
+          });
+        }
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].uc
+              option.value = TurmasLecionadas[i].uc
+              documentEditarUC.add(option)
+            }
+          }
+        }
+        if (TurmasLecionadas != null) {
+          for (i = 0; i < TurmasLecionadas.length; i++) {
+            if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+              for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+                option = document.createElement("option")
+                option.text = TurmasLecionadas[i].turmas[j]
+                option.value = TurmasLecionadas[i].turmas[j]
+                documentEditarTurma.add(option)
+              }
+
+            }
+          }
+        }
+        if (documentTurma != null) {
+          $("#editarTurma option").each(function () {
+            $(this).siblings('[value="' + this.value + '"]').remove();
+          });
+        }
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table2 = document.getElementsByTagName('table')[1];
+
+          var newRow = table2.insertRow(table2.rows.length);
+
+          // add cells to the row
+          vetorNotas.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table2.rows.length - 1; i > 1; i--) {
+            table2.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorNotas.length; i++) {
+          if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+            var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+          }
+        }
+      }
+
+      documentEditarTurma = document.getElementById("turmaEditar")
+      documentEditarUC = document.getElementById("ucEditar")
+      documentEscolaEditar = document.getElementById("escolaEditar")
+      for (i = 0; i < documentTurma.length; i++) {
+        $('#turmaEditar').children().remove().end()
+      }
+      for (i = 0; i < documentuc.length; i++) {
+        $('#ucEditar').children().remove().end()
+      }
+      for (i = 0; i < documentEscola.length; i++) {
+        $('#escolaEditar').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].escola
+            option.value = TurmasLecionadas[i].escola
+            documentEscolaEditar.add(option)
+          }
+        }
+      }
+      if (documentEscolaEditar != null) {
+        $("#escolaEditar option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentEditarUC.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentEditarTurma.add(option)
+            }
+
+          }
+        }
+      }
+
+      if (documentTurma != null) {
+        $("#turmaEditar option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+      vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+      if (vetorNotas == null) {
+        vetorNotas = []
+      }
+      if (vetorNotas != null) {
+
+        var table2 = document.getElementsByTagName('table')[1];
+
+        var newRow = table2.insertRow(table2.rows.length);
+
+        // add cells to the row
+        vetorNotas.sort((a, b) => {
+          let fa = a.tipoNota.toLowerCase(),
+            fb = b.tipoNota.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = table2.rows.length - 1; i > 1; i--) {
+          table2.deleteRow(i)
+        }
+      } l = 0
+
+      for (i = 0; i < vetorNotas.length; i++) {
+        if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+          var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+        }
+      }
+      /*escolas = JSON.parse(localStorage.getItem("escolas"))
+      if (escolas != null) {
+          for (i = 0; i < escolas.length; i++) {
+              option = document.createElement("option")
+              option.text = escolas[i].colegio
+              option.value = escolas[i].colegio
+              select.add(option)
+          }
+          escolas = JSON.parse(localStorage.getItem("escolas"))
+      }
+      */
+      CarregarMedia()
+    }
+
+    ///////////////////////////////////////////////////////
+    /*⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠋⠉⠈⠉⠉⠉⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⡏⣀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿
+      ⣿⣿⣿⢏⣴⣿⣷⠀⠀⠀⠀⠀⢾⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿
+      ⣿⣿⣟⣾⣿⡟⠁⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣷⢢⠀⠀⠀⠀⠀⠀⠀⢸⣿
+      ⣿⣿⣿⣿⣟⠀⡴⠄⠀⠀⠀⠀⠀⠀⠙⠻⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⣿
+      ⣿⣿⣿⠟⠻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⢴⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⣿
+      ⣿⣁⡀⠀⠀⢰⢠⣦⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⡄⠀⣴⣶⣿⡄⣿
+      ⣿⡋⠀⠀⠀⠎⢸⣿⡆⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⠗⢘⣿⣟⠛⠿⣼
+      ⣿⣿⠋⢀⡌⢰⣿⡿⢿⡀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⡇⠀⢸⣿⣿⣧⢀⣼
+      ⣿⣿⣷⢻⠄⠘⠛⠋⠛⠃⠀⠀⠀⠀⠀⢿⣧⠈⠉⠙⠛⠋⠀⠀⠀⣿⣿⣿⣿⣿
+      ⣿⣿⣧⠀⠈⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠀⠀⠀⠀⢀⢃⠀⠀⢸⣿⣿⣿⣿
+      ⣿⣿⡿⠀⠴⢗⣠⣤⣴⡶⠶⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡸⠀⣿⣿⣿⣿
+      ⣿⣿⣿⡀⢠⣾⣿⠏⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠉⠀⣿⣿⣿⣿
+      ⣿⣿⣿⣧⠈⢹⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿
+      ⣿⣿⣿⣿⡄⠈⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⣦⣄⣀⣀⣀⣀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠙⣿⣿⡟⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠁⠀⠀⠹⣿⠃⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢐⣿⣿⣿⣿⣿⣿⣿⣿⣿
+      ⣿⣿⣿⣿⠿⠛⠉⠉⠁⠀⢻⣿⡇⠀⠀⠀⠀⠀⠀⢀⠈⣿⣿⡿⠉⠛⠛⠛⠉⠉
+      ⣿⡿⠋⠁⠀⠀⢀⣀⣠⡴⣸⣿⣇⡄⠀⠀⠀⠀⢀⡿⠄⠙⠛⠀⣀⣠⣤⣤⠄*/
+    //////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
+$('#turmaEditar').change(function () {
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+      vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+      if (vetorNotas == null) {
+        vetorNotas = []
+      }
+      if (vetorNotas != null) {
+
+        var table2 = document.getElementsByTagName('table')[1];
+
+        var newRow = table2.insertRow(table2.rows.length);
+
+        // add cells to the row
+        vetorNotas.sort((a, b) => {
+          let fa = a.tipoNota.toLowerCase(),
+            fb = b.tipoNota.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = table2.rows.length - 1; i > 1; i--) {
+          table2.deleteRow(i)
+        }
+      }
+      for (i = 0; i < vetorNotas.length; i++) {
+        if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+          var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+        }
+      }
+    })
+    $('#turmaMedia').change(function () {
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table3 = document.getElementsByTagName('table')[2];
+
+          var newRow = table3.insertRow(table3.rows.length);
+
+          // add cells to the row
+          vetorMedia.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table3.rows.length - 1; i > 1; i--) {
+            table3.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorMedia.length; i++) {
+          if (vetorMedia[i].escola == documentEscolaMedia.value && vetorMedia[i].turma == documentTurmaMedia.value && vetorMedia[i].uc == documentucMedia.value && vetorMedia[i].semestre == documentSemestreMedia.value) {
+            var newRow = table3.insertRow(table3.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            cel1.innerHTML = vetorMedia[i].nome;
+
+            cel2.innerHTML = vetorMedia[i].nota
+
+          }
+        }
+    })
+    $('#semestreMedia').change(function () {
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table3 = document.getElementsByTagName('table')[2];
+
+          var newRow = table3.insertRow(table3.rows.length);
+
+          // add cells to the row
+          vetorMedia.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table3.rows.length - 1; i > 1; i--) {
+            table3.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorMedia.length; i++) {
+          if (vetorMedia[i].escola == documentEscolaMedia.value && vetorMedia[i].turma == documentTurmaMedia.value && vetorMedia[i].uc == documentucMedia.value && vetorMedia[i].semestre == documentSemestreMedia.value) {
+            var newRow = table3.insertRow(table3.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            cel1.innerHTML = vetorMedia[i].nome;
+
+            cel2.innerHTML = vetorMedia[i].nota
+
+          }
+        }
+      })
+    $('#turmaEditar').change(function () {
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+      vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+      if (vetorNotas == null) {
+        vetorNotas = []
+      }
+      if (vetorNotas != null) {
+
+        var table2 = document.getElementsByTagName('table')[1];
+
+        var newRow = table2.insertRow(table2.rows.length);
+
+        // add cells to the row
+        vetorNotas.sort((a, b) => {
+          let fa = a.tipoNota.toLowerCase(),
+            fb = b.tipoNota.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = table2.rows.length - 1; i > 1; i--) {
+          table2.deleteRow(i)
+        }
+      }
+      for (i = 0; i < vetorNotas.length; i++) {
+        if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+          var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+        }
+      }
+    })
+    $('#ucMedia').change(function () {
+      for (i = 0; i < documentEditarTurma.length; i++) {
+        $('#turmaMedia').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentEditarUC.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurmaMedia.add(option)
+            }
+
+          }
+        }
+      }
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table3 = document.getElementsByTagName('table')[2];
+
+          var newRow = table3.insertRow(table3.rows.length);
+
+          // add cells to the row
+          vetorMedia.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table3.rows.length - 1; i > 1; i--) {
+            table3.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorMedia.length; i++) {
+          if (vetorMedia[i].escola == documentEscolaMedia.value && vetorMedia[i].turma == documentTurmaMedia.value && vetorMedia[i].uc == documentucMedia.value && vetorMedia[i].semestre == documentSemestreMedia.value) {
+            var newRow = table3.insertRow(table3.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            cel1.innerHTML = vetorMedia[i].nome;
+
+            cel2.innerHTML = vetorMedia[i].nota
+
+          }
+        }
+    })
+    
+    $('#ucEditar').change(function () {
+      for (i = 0; i < documentEditarTurma.length; i++) {
+        $('#turmaEditar').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentEditarUC.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentEditarTurma.add(option)
+            }
+
+          }
+        }
+      }
+      if (documentTurma != null) {
+        $("#turmaEditar option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table2 = document.getElementsByTagName('table')[1];
+
+          var newRow = table2.insertRow(table2.rows.length);
+
+          // add cells to the row
+          vetorNotas.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table2.rows.length - 1; i > 1; i--) {
+            table2.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorNotas.length; i++) {
+          if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+            var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+          }
+        }
+    })
+    $('#escola').change(function () {
+      for (i = 0; i < documentTurma.length; i++) {
+        $('#turma').children().remove().end()
+      }
+      for (i = 0; i < documentuc.length; i++) {
+        $('#uc').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentuc.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurma.add(option)
+            }
+
+          }
+        }
+      }
+
+
+    })
+    $('#escolaMedia').change(function () {
+      for (i = 0; i < documentTurma.length; i++) {
+        $('#turmaMedia').children().remove().end()
+      }
+      for (i = 0; i < documentuc.length; i++) {
+        $('#ucMedia').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentucMedia.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurmaMedia.add(option)
+            }
+
+          }
+        }
+      }
+
+
+    })
+    ////////////////////////
+    $('#turma').change(function () {
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+      if (vetorUsuarios == null) {
+        vetorUsuarios = []
+      }
+      if (vetorUsuarios != null) {
+
+        var table = document.getElementsByTagName('table')[0];
+
+        var newRow = table.insertRow(table.rows.length);
+
+        // add cells to the row
+        vetorUsuarios.sort((a, b) => {
+          let fa = a.nome.toLowerCase(),
+            fb = b.nome.toLowerCase();
+
+          if (fa < fb) {
+            return -1;
+          }
+          if (fa > fb) {
+            return 1;
+          }
+          return 0;
+        });
+        for (i = table.rows.length - 1; i > 1; i--) {
+          table.deleteRow(i)
+        }
+      }
+      for (i = 0; i < vetorUsuarios.length; i++) {
+        if (vetorUsuarios[i].classe == "Aluno" && vetorUsuarios[i].turmaEscola == documentTurma.value) {
+          var newRow = table.insertRow(table.rows.length);
+          var cel1 = newRow.insertCell(0);
+          var cel2 = newRow.insertCell(1);
+
+          cel1.innerHTML = vetorUsuarios[i].nome;
+          cel2.innerHTML = "<input min='0' max='10' type='number' value='0'>"
+
+        }
+      }
+    })
+      $('#editarSemestre').change(function () {
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table2 = document.getElementsByTagName('table')[1];
+
+          var newRow = table2.insertRow(table2.rows.length);
+
+          // add cells to the row
+          vetorNotas.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table2.rows.length - 1; i > 1; i--) {
+            table2.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorNotas.length; i++) {
+          if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+            var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+          }
+        }
+      })
+    $('#uc').change(function () {
+      for (i = 0; i < documentTurma.length; i++) {
+        $('#turma').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurma.add(option)
+            }
+
+          }
+        }
+      }
+      if (documentTurma != null) {
+        $("#turma option").each(function () {
+          $(this).siblings('[value="' + this.value + '"]').remove();
+        });
+      }
+    })
+    $('#escola').change(function () {
+      for (i = 0; i < documentEscola.length; i++) {
+        $('#turma').children().remove().end()
+      }
+      for (i = 0; i < documentuc.length; i++) {
+        $('#uc').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentuc.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentuc.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentTurma.add(option)
+            }
+
+          }
+        }
+      }
+
+
+    })
+    $('#escolaEditar').change(function () {
+      for (i = 0; i < documentEditarTurma.length; i++) {
+        $('#turmaEditar').children().remove().end()
+      }
+      for (i = 0; i < documentEditarUC.length; i++) {
+        $('#ucEditar').children().remove().end()
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome) {
+            option = document.createElement("option")
+            option.text = TurmasLecionadas[i].uc
+            option.value = TurmasLecionadas[i].uc
+            documentEditarUC.add(option)
+          }
+        }
+      }
+      if (TurmasLecionadas != null) {
+        for (i = 0; i < TurmasLecionadas.length; i++) {
+          if (TurmasLecionadas[i].Professor == CurrentSession.nome && documentEditarUC.value == TurmasLecionadas[i].uc) {
+            for (j = 0; j < TurmasLecionadas[i].turmas.length; j++) {
+              option = document.createElement("option")
+              option.text = TurmasLecionadas[i].turmas[j]
+              option.value = TurmasLecionadas[i].turmas[j]
+              documentEditarTurma.add(option)
+            }
+
+          }
+        }
+      }
+      vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        if (vetorNotas != null) {
+
+          var table2 = document.getElementsByTagName('table')[1];
+
+          var newRow = table2.insertRow(table2.rows.length);
+
+          // add cells to the row
+          vetorNotas.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table2.rows.length - 1; i > 1; i--) {
+            table2.deleteRow(i)
+          }
+          vetorNotas = JSON.parse(localStorage.getItem("Notas"))
+        }
+        l = 0
+        for (i = 0; i < vetorNotas.length; i++) {
+          if (vetorNotas[i].escola == documentEscolaEditar.value && vetorNotas[i].turma == documentEditarTurma.value && vetorNotas[i].uc == documentEditarUC.value && vetorNotas[i].semestre == document.getElementById("editarSemestre").value) {
+            var newRow = table2.insertRow(table2.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+            var cel4 = newRow.insertCell(3);
+            var cel5 = newRow.insertCell(4);
+            cel1.innerHTML = vetorNotas[i].nome;
+
+            cel2.innerHTML = "<input min='0' max='10' type='number' class='uga'>"
+            // document.getElementsByClassName("uga")[i].value = vetorNotas[i].nota 
+            document.getElementsByClassName("uga")[l].value = vetorNotas[i].nota
+            l++
+            //  cel2.val = 1
+
+            cel3.innerHTML = vetorNotas[i].tipoNota
+            cel4.innerHTML = vetorNotas[i].peso
+            cel5.innerHTML = vetorNotas[i].semestre
+          }
+        }
+    })
+    $('#tipoNota').change(function () {
+      if (document.getElementById("tipoNota").value == "Rec1" || document.getElementById("tipoNota").value == "Rec2") {
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        if (vetorUsuarios != null) {
+
+          var table = document.getElementsByTagName('table')[0];
+
+          var newRow = table.insertRow(table.rows.length);
+
+          // add cells to the row
+          vetorUsuarios.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table.rows.length - 1; i > 1; i--) {
+            table.deleteRow(i)
+          }
+        }
+        for (i = 0; i < vetorUsuarios.length; i++) {
+          if (vetorUsuarios[i].classe == "Aluno" && vetorUsuarios[i].turmaEscola == documentTurma.value) {
+            var newRow = table.insertRow(table.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+
+            cel1.innerHTML = vetorUsuarios[i].nome;
+            cel2.innerHTML = "<input min='0' max='10' type='number' value='0'>"
+
+          }
+        }
+      }
+      else {
+        vetorUsuarios = JSON.parse(localStorage.getItem("usuario"))
+        if (vetorUsuarios != null) {
+
+          var table = document.getElementsByTagName('table')[0];
+
+          var newRow = table.insertRow(table.rows.length);
+
+          // add cells to the row
+          vetorUsuarios.sort((a, b) => {
+            let fa = a.nome.toLowerCase(),
+              fb = b.nome.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          for (i = table.rows.length - 1; i > 1; i--) {
+            table.deleteRow(i)
+          }
+        }
+        for (i = 0; i < vetorUsuarios.length; i++) {
+          if (vetorUsuarios[i].classe == "Aluno" && vetorUsuarios[i].turmaEscola == documentTurma.value) {
+            var newRow = table.insertRow(table.rows.length);
+            var cel1 = newRow.insertCell(0);
+            var cel2 = newRow.insertCell(1);
+            var cel3 = newRow.insertCell(2);
+
+            cel1.innerHTML = vetorUsuarios[i].nome;
+            cel2.innerHTML = "<input min='1' max='10' type='number' value='1'>"
+            cel3.innerHTML = "<input min='1' max='6' type='number' value='1'>"
+
+          }
+        }
+      }
+      /*var cel3 = newRow.insertCell(2);
+      cel2.innerHTML = "<input min='1' max='10' type='number' value='1'>"
+      cel3.innerHTML = "<input min='1' max='6' type='number' value='1'>"*/
+    })
+    window.onload = codeAddress
+  </script>
+</body>
+
+
+</html>
